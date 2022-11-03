@@ -15,23 +15,23 @@ import static org.quartz.TriggerBuilder.*;
 import static org.quartz.SimpleScheduleBuilder.*;
 
 public class AlertRabbit {
+    private static final Properties config = new Properties();
 
-    private static Properties getProperties() {
-        var config = new Properties();
+    private static void getProperties() {
         try (var in = AlertRabbit.class.getClassLoader().getResourceAsStream("rabbit.properties")) {
             config.load(in);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return config;
     }
 
     public static void main(String[] args) throws ClassNotFoundException {
-        Class.forName(getProperties().getProperty("driver-class-name"));
+        getProperties();
+        Class.forName(config.getProperty("driver-class-name"));
         try (var cn = DriverManager.getConnection(
-                getProperties().getProperty("url"),
-                getProperties().getProperty("username"),
-                getProperties().getProperty("password"))) {
+                config.getProperty("url"),
+                config.getProperty("username"),
+                config.getProperty("password"))) {
             var scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             var data = new JobDataMap();
@@ -41,7 +41,7 @@ public class AlertRabbit {
                     .build();
 
             var times = simpleSchedule()
-                    .withIntervalInSeconds(Integer.parseInt(getProperties().getProperty("rabbit.interval")))
+                    .withIntervalInSeconds(Integer.parseInt(config.getProperty("rabbit.interval")))
                     .repeatForever();
 
             var trigger = newTrigger()
