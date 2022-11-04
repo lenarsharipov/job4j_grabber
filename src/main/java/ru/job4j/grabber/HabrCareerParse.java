@@ -28,7 +28,7 @@ public class HabrCareerParse {
 
                 var dateElement = row.select(".vacancy-card__date").first();
                 var vacancyDateElement = dateElement.child(0);
-                String dateTime = String.format("%s", vacancyDateElement.attr("datetime"));
+                var dateTime = String.format("%s", vacancyDateElement.attr("datetime"));
                 System.out.printf("%s %s %s%n", vacancyName, link, dateTime);
             });
             page++;
