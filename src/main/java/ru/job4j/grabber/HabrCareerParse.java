@@ -31,8 +31,8 @@ public class HabrCareerParse {
                 var dateTime = String.format("%s", vacancyDateElement.attr("datetime"));
 
                 try {
-                    var descr = retrieveDescription(link);
-                    System.out.printf("%s %s %s%n%s%n", vacancyName, link, dateTime, descr);
+                    var description = retrieveDescription(link);
+                    System.out.printf("%s %s %s%n%s%n", vacancyName, link, dateTime, description);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -44,9 +44,6 @@ public class HabrCareerParse {
             var connection = Jsoup.connect(link);
             var document = connection.get();
             var rows = document.select(".vacancy-show");
-            var sb = new StringBuilder();
-            sb.append(rows.select(".section-title__title").first().text().concat(System.lineSeparator()));
-            sb.append(rows.select(".style-ugc").text());
-            return sb.toString();
+            return rows.select(".style-ugc").text();
     }
 }
