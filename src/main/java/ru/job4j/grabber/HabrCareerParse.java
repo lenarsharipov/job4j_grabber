@@ -10,12 +10,13 @@ public class HabrCareerParse {
 
     private static final String PAGE_LINK = String.format("%s/vacancies/java_developer", SOURCE_LINK);
 
+    private static final int PAGES = 5;
+
     private static final String DELIMITER = "?page=";
 
     public static void main(String[] args) throws IOException {
-        var page = 1;
         var rowSeparator = "*".repeat(60);
-        while (page <= 5) {
+        for (var page = 1; page <= PAGES; page++) {
             var connection = Jsoup.connect(String.format("%s%s%s", PAGE_LINK, DELIMITER, page));
             var document = connection.get();
             var rows = document.select(".vacancy-card__inner");
@@ -36,7 +37,6 @@ public class HabrCareerParse {
                     throw new RuntimeException(e);
                 }
             });
-            page++;
         }
     }
 
