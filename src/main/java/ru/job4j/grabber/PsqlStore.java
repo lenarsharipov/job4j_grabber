@@ -1,6 +1,5 @@
 package ru.job4j.grabber;
 
-import ru.job4j.grabber.model.Post;
 import ru.job4j.grabber.utils.HabrCareerDateTimeParser;
 
 import java.io.InputStream;
