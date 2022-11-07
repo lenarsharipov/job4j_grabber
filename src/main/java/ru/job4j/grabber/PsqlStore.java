@@ -28,7 +28,8 @@ public class PsqlStore implements Store, AutoCloseable {
     public void save(Post post) {
         try (PreparedStatement statement =
                 cnn.prepareStatement(
-                        "insert into post(title, link, description, created) values(?, ?, ?, ?) on conflict(link) do nothing;",
+                        "insert into post(title, link, description, created) "
+                                + "values(?, ?, ?, ?) on conflict(link) do nothing;",
                         Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, post.getTitle());
             statement.setString(2, post.getLink());
@@ -103,14 +104,16 @@ public class PsqlStore implements Store, AutoCloseable {
             try (PsqlStore psqlStore = new PsqlStore(cfg)) {
                 HabrCareerDateTimeParser habrDateTimeParser = new HabrCareerDateTimeParser();
                 String link = "https://career.habr.com/vacancies/1000112784";
-                String desc = "Компания «ЕМЕ» является одним из лидером России по разработке ПО для автоматизации логистики.";
+                String desc = "Компания «ЕМЕ» является одним из лидером "
+                        + "России по разработке ПО для автоматизации логистики.";
                 Post post1 = new Post(
                     "Андроид разработчик",
                     link, desc, habrDateTimeParser.parse("2022-10-31T13:18:50+03:00")
                 );
 
                 link = "https://career.habr.com/vacancies/1000110386";
-                desc = "СберОбразование — компания экосистемы Сбер, основанная в марте 2021 года.";
+                desc = "СберОбразование — компания экосистемы Сбер, "
+                        + "основанная в марте 2021 года.";
                 Post post2 = new Post(
                     "Backend developer (Java)",
                     link, desc, habrDateTimeParser.parse("2022-11-07T12:00:09+03:00")
