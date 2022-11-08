@@ -75,5 +75,4 @@ public class HabrCareerParse implements Parse {
             System.out.println(post);
         }
     }
-
 }
