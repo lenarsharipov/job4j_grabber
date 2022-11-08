@@ -13,7 +13,6 @@ import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 public class Grabber implements Grab {
-    private static final String PAGE_LINK = "https://career.habr.com/vacancies/java_developer";
 
     private final Properties cfg = new Properties();
 
@@ -59,7 +58,8 @@ public class Grabber implements Grab {
             Store store = (Store) map.get("store");
             Parse parse = (Parse) map.get("parse");
             /* TODO impl logic */
-            for (Post post : parse.list(PAGE_LINK)) {
+            String sourceLink = "https://career.habr.com";
+            for (Post post : parse.list(sourceLink)) {
                 store.save(post);
             }
         }

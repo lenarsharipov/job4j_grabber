@@ -68,11 +68,4 @@ public class HabrCareerParse implements Parse {
         return rows.select(".style-ugc").text();
     }
 
-    public static void main(String[] args) {
-        HabrCareerParse habrCareerParse = new HabrCareerParse(new HabrCareerDateTimeParser());
-        List<Post> posts = habrCareerParse.list("https://career.habr.com");
-        for (Post post : posts) {
-            System.out.println(post);
-        }
-    }
 }
