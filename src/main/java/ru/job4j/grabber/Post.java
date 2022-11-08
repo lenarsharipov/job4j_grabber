@@ -69,7 +69,7 @@ public class Post {
 
     @Override
     public String toString() {
-        return String.format("Post{id=%s, title=%s, link=%s, description=%s, created=%s}",
+        return String.format("Post{id=%s,%n title=%s,%n link=%s,%n description=%s,%n created=%s}%n",
                 id, title, link, description, created);
     }
 
