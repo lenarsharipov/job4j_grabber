@@ -6,6 +6,7 @@ import ru.job4j.grabber.utils.HabrCareerDateTimeParser;
 
 import java.io.*;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 import static org.quartz.JobBuilder.newJob;
@@ -59,7 +60,8 @@ public class Grabber implements Grab {
             Parse parse = (Parse) map.get("parse");
             /* TODO impl logic */
             String sourceLink = "https://career.habr.com";
-            for (Post post : parse.list(sourceLink)) {
+            List<Post> posts = parse.list(sourceLink);
+            for (Post post : posts) {
                 store.save(post);
             }
         }
