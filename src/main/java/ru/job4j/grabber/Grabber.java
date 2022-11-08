@@ -30,9 +30,11 @@ public class Grabber implements Grab {
         return scheduler;
     }
 
-    public void cfg() throws IOException {
+    public void cfg() {
         try (InputStream in = Grabber.class.getClassLoader().getResourceAsStream("app.properties")) {
             cfg.load(in);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Properties illegal");
         }
     }
 
